@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Mafia.gg role randomizer</title>
+</head>
+<body>
+<style>
+body {
+  color: white;
+  background-color: #1c1a20;
+  font-size: 11pt;
+}
+
+.textbox{
+    display: inline-block;
+    width: 25%;
+    padding: 0.25em;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    background: #f2f2f2;
+    margin: 0.25em 0;
+    border-radius: 5px;
+}
+
+.button{
+    display: inline-block;
+    width: 3.5%;
+    padding: 0.25em;
+    border: 1px solid #999;
+    box-sizing: border-box;
+    color: white; 
+    background: gray;
+    margin: 0.25em 0;
+    border-radius: 5px;
+}
+
+.flex {
+display: flex;
+}
+
+.table {
+    width: 160px;
+    border-collapse: separate;
+    border: 1px solid grey;
+    font-size: 12pt;
+    border-radius: 5px;
+    border-spacing: 0;
+}
+
+.table tr:first-child td:first-child{
+  border-radius: 5px 5px 0 0;
+}
+
+.table tr:last-child td:last-child{
+  border-radius: 0 0 5px 5px;
+}
+
+.numform {
+   width: 40px;
+   border-radius: 5px;
+}
+
+</style>
+
+
+    <!-- copy button -->
+    <button id="copybutton" onclick="copyToClipboard()" class="button">Copy</button>
+    <input id="copyTarget" type="text" value="" class="textbox" readonly> 
+    <br>
+    <button onclick="makelist()" class="button">Roll</button>
+
+Cop:<input type="number" id="copnum" class="numform" value="0" min="0">
+PR:<input type="number" id="prnum"  class="numform" value="0" min="0">
+Third Party:<input type="number" id="thirdnum"  class="numform" value="0" min="0">
+Mafia:<input type="number" id="meetmafnum"  class="numform" value="0" min="0">
+Non-meeting Mafia:<input type="number" id="nonmafnum"  class="numform" value="0" min="0">
+
+<p id="roletable"></p>
+<br>
+<ul>
+  <li>Cop represents one of the following roles: Cop, Insane Cop, Confused Cop, Naive Cop, Paranoid Cop.</li>
+  <li>Fool, Selfish Fool, Jester, Freeloader are not included.</li>
+</ul>
+
+<script type="text/javascript">
+
+function indexOfAll(array, search) {
+  let result = [];
+  let index = -1;
+  do {
+  index = array.indexOf(search, index + 1);
+  result.push(index);
+  } while (index !== -1);
+  return result.slice(0, result.length - 1);
+}
+
+function makelist() {
+
+let cop = []; //excluding Parity and Vanilla
+let pr = [];
+let meetmafia = [];
+let nonmeetmafia = [];
+let thirdparty = [];
+
+let alltown = [];
+let allthirdparty = [];
+let allmafia = [];
+
+let roleset = [];
+let code = [];
+
+copcount = document.getElementById("copnum").value;
+prcount = document.getElementById("prnum").value;
+thirdcount = document.getElementById("thirdnum").value;
+meetmafcount = document.getElementById("meetmafnum").value;
+nonmafcount = document.getElementById("nonmafnum").value;
+
+
+let i = 0;
+while (i < copcount) {
+value = Math.floor(Math.random() * 5) + 1;
+
+switch (value) {
+  case 1:
+    console.log('Cop');
+    roleset.push('Cop');
+    alltown.push('Cop');
+    break;
+  case 2:
+    console.log('Confused Cop');
+    roleset.push('Confused Cop');
+    alltown.push('Confused Cop');
+    break;
+  case 3:
+    console.log('Insane Cop');
+    roleset.push('Insane Cop');
+    alltown.push('Insane Cop');
+    break;
+  case 4:
+    console.log('Paranoid Cop');
+    roleset.push('Paranoid Cop');
+    alltown.push('Paranoid Cop');
+    break;
+  case 5:
+    console.log('Naive Cop');
+    roleset.push('Naive Cop');
+    alltown.push('Naive Cop');
+    break;
+}
+
+i++
+};
+
+
+
+
+let i2 = 0;
+while (i2 < prcount) {
+value = Math.floor(Math.random() * 96) + 1;
+
+switch (value) {
+  case 1:
+    console.log('Agent');
+    roleset.push('Agent');
+    alltown.push('Agent');
+    break;
+  case 2:
+    console.log('Agoraphobe');
+    roleset.push('Agoraphobe');
+    alltown.push('Agoraphobe');
+    break;
+  case 3:
+    console.log('Alcoholic');
+    roleset.push('Alcoholic');
+    alltown.push('Alcoholic');
+    break;
+  case 4:
+    console.log('Armorer');
+    roleset.push('Armorer');
+    alltown.push('Armorer');
+    break;
+  case 5:
+    console.log('Arms Dealer');
+    roleset.push('Arms Dealer');
+    alltown.push('Arms Dealer');
+    break;
+  case 6:
+    console.log('Auditor');
+    roleset.push('Auditor');
+    alltown.push('Auditor');
+    break;
+  case 7:
+    console.log('Bishop');
+    roleset.push('Bishop');
+    alltown.push('Bishop');
+    break;
+  case 8:
+    console.log('Blade Master');
+    roleset.push('Blade Master');
+    alltown.push('Blade Master');
+    break;
+  case 9:
+    console.log('Bodyguard');
+    roleset.push('Bodyguard');
+    alltown.push('Bodyguard');
+    break;
+  case 10:
+    console.log('Bulletproof');
+    roleset.push('Bulletproof');
+    alltown.push('Bulletproof');
+    break;
+  case 11:
+    console.log('Candle');
+    roleset.push('Candle');
+    alltown.push('Candle');
+    break;
+  case 12:
+    console.log('Confused Cop');
+    roleset.push('Confused Cop');
+    alltown.push('Confused Cop');
+    break;
+  case 13:
+    console.log('Cop');
+    roleset.push('Cop');
+    alltown.push('Cop');
+    break;
+  case 14:
+    console.log('Coroner');
+    roleset.push('Coroner');
+    alltown.push('Coroner');
+    break;
+  case 15:
+    console.log('Crier');
+    roleset.push('Crier');
+    alltown.push('Crier');
+    break;
+  case 16:
+    console.log('Defense Attorney');
+    roleset.push('Defense Attorney');
+    alltown.push('Defense Attorney');
+    break;
+  case 17:
+    console.log('Delinquent');
+    roleset.push('Delinquent');
+    alltown.push('Delinquent');
+    break;
+  case 18:
+    console.log('Detective');
+    roleset.push('Detective');
+    alltown.push('Detective');
+    break;
+  case 19:
+    console.log('Doctor');
+    roleset.push('Doctor');
+    alltown.push('Doctor');
+    break;
+  case 20:
+    console.log('Dog');
+    roleset.push('Dog');
+    alltown.push('Dog');
+    break;
+  case 21:
+    console.log('Drunk');
+    roleset.push('Drunk');
+    alltown.push('Drunk');
+    break;
+  case 22:
+    console.log('Electrician');
+    roleset.push('Electrician');
+    alltown.push('Electrician');
+    break;
+  case 23:
+    console.log('Emcee');
+    roleset.push('Emcee');
+    alltown.push('Emcee');
+    break;
+  case 24:
+    console.log('Extrovert');
+    roleset.push('Extrovert');
+    alltown.push('Extrovert');
+    break;
+  case 25:
+    console.log('Fortune Teller');
+    roleset.push('Fortune Teller');
+    alltown.push('Fortune Teller');
+    break;
+  case 26:
+    console.log('Fruit Vendor');
+    roleset.push('Fruit Vendor');
+    alltown.push('Fruit Vendor');
+    break;
+  case 27:
+    console.log('Goof');
+    roleset.push('Goof');
+    alltown.push('Goof');
+    break;
+  case 28:
+    console.log('Governor');
+    roleset.push('Governor');
+    alltown.push('Governor');
+    break;
+  case 29:
+    console.log('Grandma');
+    roleset.push('Grandma');
+    alltown.push('Grandma');
+    break;
+  case 30:
+    console.log('Guardian');
+    roleset.push('Guardian');
+    alltown.push('Guardian');
+    break;
+  case 31:
+    console.log('Handyman');
+    roleset.push('Handyman');
+    alltown.push('Handyman');
+    break;
+  case 32:
+    console.log('Hangman');
+    roleset.push('Hangman');
+    alltown.push('Hangman');
+    break;
+  case 33:
+    console.log('Hunter');
+    roleset.push('Hunter');
+    alltown.push('Hunter');
+    break;
+  case 34:
+    console.log('Hypnotist');
+    roleset.push('Hypnotist');
+    alltown.push('Hypnotist');
+    break;
+  case 35:
+    console.log('Idol Hunter');
+    roleset.push('Idol Hunter');
+    alltown.push('Idol Hunter');
+    break;
+  case 36:
+    console.log('Insane Cop');
+    roleset.push('Insane Cop');
+    alltown.push('Insane Cop');
+    break;
+  case 37:
+    console.log('Jack');
+    roleset.push('Jack');
+    alltown.push('Jack');
+    break;
+  case 38:
+    console.log('Jailer');
+    roleset.push('Jailer');
+    alltown.push('Jailer');
+    break;
+  case 39:
+    console.log('King');
+    roleset.push('King');
+    alltown.push('King');
+    break;
+  case 40:
+    console.log('Lamb');
+    roleset.push('Lamb');
+    alltown.push('Lamb');
+    break;
+  case 41:
+    console.log('Lazy Tracker');
+    roleset.push('Lazy Tracker');
+    alltown.push('Lazy Tracker');
+    break;
+  case 42:
+    console.log('Lookout');
+    roleset.push('Lookout');
+    alltown.push('Lookout');
+    break;
+  case 43:
+    console.log('Loser');
+    roleset.push('Loser');
+    alltown.push('Loser');
+    break;
+  case 44:
+    console.log('Luckyguard');
+    roleset.push('Luckyguard');
+    alltown.push('Luckyguard');
+    break;
+  case 45:
+    console.log('Mason');
+    roleset.push('Mason');
+    alltown.push('Mason');
+    break;
+  case 46:
+    console.log('Medic');
+    roleset.push('Medic');
+    alltown.push('Medic');
+    break;
+  case 47:
+    console.log('Medium');
+    roleset.push('Medium');
+    alltown.push('Medium');
+    break;
+  case 48:
+    console.log('Merlin');
+    roleset.push('Merlin');
+    alltown.push('Merlin');
+    break;
+  case 49:
+    console.log('Naive Cop');
+    roleset.push('Naive Cop');
+    alltown.push('Naive Cop');
+    break;
+  case 50:
+    console.log('Nervous Sleeper');
+    roleset.push('Nervous Sleeper');
+    alltown.push('Nervous Sleeper');
+    break;
+  case 51:
+    console.log('Nurse');
+    roleset.push('Nurse');
+    alltown.push('Nurse');
+    break;
+  case 52:
+    console.log('Oracle');
+    roleset.push('Oracle');
+    alltown.push('Oracle');
+    break;
+  case 53:
+    console.log('Paranoiac');
+    roleset.push('Paranoiac');
+    alltown.push('Paranoiac');
+    break;
+  case 54:
+    console.log('Paranoid Cop');
+    roleset.push('Paranoid Cop');
+    alltown.push('Paranoid Cop');
+    break;
+  case 55:
+    console.log('Parity Cop');
+    roleset.push('Parity Cop');
+    alltown.push('Parity Cop');
+    break;
+  case 56:
+    console.log('Party Host');
+    roleset.push('Party Host');
+    alltown.push('Party Host');
+    break;
+  case 57:
+    console.log('Patroller');
+    roleset.push('Patroller');
+    alltown.push('Patroller');
+    break;
+  case 58:
+    console.log('Phantom');
+    roleset.push('Phantom');
+    alltown.push('Phantom');
+    break;
+  case 59:
+    console.log('Photographer');
+    roleset.push('Photographer');
+    alltown.push('Photographer');
+    break;
+  case 60:
+    console.log('Pollster');
+    roleset.push('Pollster');
+    alltown.push('Pollster');
+    break;
+  case 61:
+    console.log('Polygraph');
+    roleset.push('Polygraph');
+    alltown.push('Polygraph');
+    break;
+  case 62:
+    console.log('President');
+    roleset.push('President');
+    alltown.push('President');
+    break;
+  case 63:
+    console.log('Profiler');
+    roleset.push('Profiler');
+    alltown.push('Profiler');
+    break;
+  case 64:
+    console.log('Prosecutor');
+    roleset.push('Prosecutor');
+    alltown.push('Prosecutor');
+    break;
+  case 65:
+    console.log('Psychiatrist');
+    roleset.push('Psychiatrist');
+    alltown.push('Psychiatrist');
+    break;
+  case 66:
+    console.log('Representative');
+    roleset.push('Representative');
+    alltown.push('Representative');
+    break;
+  case 67:
+    console.log('Revenant');
+    roleset.push('Revenant');
+    alltown.push('Revenant');
+    break;
+  case 68:
+    console.log('Rifleman');
+    roleset.push('Rifleman');
+    alltown.push('Rifleman');
+    break;
+  case 69:
+    console.log('Runner');
+    roleset.push('Runner');
+    alltown.push('Runner');
+    break;
+  case 70:
+    console.log('Secret Service');
+    roleset.push('Secret Service');
+    alltown.push('Secret Service');
+    break;
+  case 71:
+    console.log('Seer');
+    roleset.push('Seer');
+    alltown.push('Seer');
+    break;
+  case 72:
+    console.log('Sergeant');
+    roleset.push('Sergeant');
+    alltown.push('Sergeant');
+    break;
+  case 73:
+    console.log('Sheriff');
+    roleset.push('Sheriff');
+    alltown.push('Sheriff');
+    break;
+  case 74:
+    console.log('Shogun');
+    roleset.push('Shogun');
+    alltown.push('Shogun');
+    break;
+  case 75:
+    console.log('Snoop');
+    roleset.push('Snoop');
+    alltown.push('Snoop');
+    break;
+  case 76:
+    console.log('Soloman');
+    roleset.push('Soloman');
+    alltown.push('Soloman');
+    break;
+  case 77:
+    console.log('Speaker');
+    roleset.push('Speaker');
+    alltown.push('Speaker');
+    break;
+  case 78:
+    console.log('Surveyor');
+    roleset.push('Surveyor');
+    alltown.push('Surveyor');
+    break;
+  case 79:
+    console.log('Suspect Governor');
+    roleset.push('Suspect Governor');
+    alltown.push('Suspect Governor');
+    break;
+  case 80:
+    console.log('Suspect Mind');
+    roleset.push('Suspect Mind');
+    alltown.push('Suspect Mind');
+    break;
+  case 81:
+    console.log('Tapioca');
+    roleset.push('Tapioca');
+    alltown.push('Tapioca');
+    break;
+  case 82:
+    console.log('Templar');
+    roleset.push('Templar');
+    alltown.push('Templar');
+    break;
+  case 83:
+    console.log('Tourist');
+    roleset.push('Tourist');
+    alltown.push('Tourist');
+    break;
+  case 84:
+    console.log('Tracker');
+    roleset.push('Tracker');
+    alltown.push('Tracker');
+    break;
+  case 85:
+    console.log('Trapper');
+    roleset.push('Trapper');
+    alltown.push('Trapper');
+    break;
+  case 86:
+    console.log('Vanilla Cop');
+    roleset.push('Vanilla Cop');
+    alltown.push('Vanilla Cop');
+    break;
+  case 87:
+    console.log('Vash');
+    roleset.push('Vash');
+    alltown.push('Vash');
+    break;
+  case 88:
+    console.log('Veteran');
+    roleset.push('Veteran');
+    alltown.push('Veteran');
+    break;
+  case 89:
+    console.log('Vigilante');
+    roleset.push('Vigilante');
+    alltown.push('Vigilante');
+    break;
+  case 90:
+    console.log('Virgin');
+    roleset.push('Virgin');
+    alltown.push('Virgin');
+    break;
+  case 91:
+    console.log('Weaver');
+    roleset.push('Weaver');
+    alltown.push('Weaver');
+    break;
+  case 92:
+    console.log('Wiretapper');
+    roleset.push('Wiretapper');
+    alltown.push('Wiretapper');
+    break;
+  case 93:
+    console.log('Bomb');
+    roleset.push('Bomb');
+    alltown.push('Bomb');
+    break;
+  case 94:
+    console.log('Regent');
+    roleset.push('Regent');
+    alltown.push('Regent');
+    break;
+  case 95:
+    console.log('Defector');
+    roleset.push('Defector');
+    alltown.push('Defector');
+    break;
+  case 96:
+    console.log('Tactician');
+    roleset.push('Tactician');
+    alltown.push('Tactician');
+    break;
+}
+
+i2++
+};
+
+
+//meetmaf
+
+
+
+let i3 = 0;
+
+while (i3 < meetmafcount) {
+value = Math.floor(Math.random() * 59) + 1; //excluding Freeloader
+switch (value) {
+  case 1:
+    console.log('Anarchist');
+    roleset.push('Anarchist');
+    allmafia.push('Anarchist');
+    break;
+  case 2:
+    console.log('Brainwasher');
+    roleset.push('Brainwasher');
+    allmafia.push('Brainwasher');
+    break;
+  case 3:
+    console.log('Busboy');
+    roleset.push('Busboy');
+    allmafia.push('Busboy');
+    break;
+  case 4:
+    console.log('Cat');
+    roleset.push('Cat');
+    allmafia.push('Cat');
+    break;
+  case 5:
+    console.log('Con Man');
+    roleset.push('Con Man');
+    allmafia.push('Con Man');
+    break;
+  case 6:
+    console.log('Contingency Planner');
+    roleset.push('Contingency Planner');
+    allmafia.push('Contingency Planner');
+    break;
+  case 7:
+    console.log('Corruptor');
+    roleset.push('Corruptor');
+    allmafia.push('Corruptor');
+    break;
+  case 8:
+    console.log('Counterfeiter');
+    roleset.push('Counterfeiter');
+    allmafia.push('Counterfeiter');
+    break;
+  case 9:
+    console.log('Crook');
+    roleset.push('Crook');
+    allmafia.push('Crook');
+    break;
+  case 10:
+    console.log('Diva');
+    roleset.push('Diva');
+    allmafia.push('Diva');
+    break;
+  case 11:
+    console.log('Don');
+    roleset.push('Don');
+    allmafia.push('Don');
+    break;
+  case 12:
+    console.log('Fixer');
+    roleset.push('Fixer');
+    allmafia.push('Fixer');
+    break;
+  case 13:
+    console.log('Framer');
+    roleset.push('Framer');
+    allmafia.push('Framer');
+    break;
+  case 14:
+    console.log('Freezer');
+    roleset.push('Freezer');
+    allmafia.push('Freezer');
+    break;
+  case 15:
+    console.log('Godfather');
+    roleset.push('Godfather');
+    allmafia.push('Godfather');
+    break;
+  case 16:
+    console.log('Grandpa');
+    roleset.push('Grandpa');
+    allmafia.push('Grandpa');
+    break;
+  case 17:
+    console.log('Graverobber');
+    roleset.push('Graverobber');
+    allmafia.push('Graverobber');
+    break;
+  case 18:
+    console.log('Headhunter');
+    roleset.push('Headhunter');
+    allmafia.push('Headhunter');
+    break;
+  case 19:
+    console.log('Hitman');
+    roleset.push('Hitman');
+    allmafia.push('Hitman');
+    break;
+  case 20:
+    console.log('Hooker');
+    roleset.push('Hooker');
+    allmafia.push('Hooker');
+    break;
+  case 21:
+    console.log('Hustler');
+    roleset.push('Hustler');
+    allmafia.push('Hustler');
+    break;
+  case 22:
+    console.log('Impostor');
+    roleset.push('Impostor');
+    allmafia.push('Impostor');
+    break;
+  case 23:
+    console.log('Informant');
+    roleset.push('Informant');
+    allmafia.push('Informant');
+    break;
+  case 24:
+    console.log('Interceptor');
+    roleset.push('Interceptor');
+    allmafia.push('Interceptor');
+    break;
+  case 25:
+    console.log('Janitor');
+    roleset.push('Janitor');
+    allmafia.push('Janitor');
+    break;
+  case 26:
+    console.log('Jaywalker');
+    roleset.push('Jaywalker');
+    allmafia.push('Jaywalker');
+    break;
+  case 27:
+    console.log('Jekyll');
+    roleset.push('Jekyll');
+    allmafia.push('Jekyll');
+    break;
+  case 28:
+    console.log('Kingpin');
+    roleset.push('Kingpin');
+    allmafia.push('Kingpin');
+    break;
+  case 29:
+    console.log('Klutz');
+    roleset.push('Klutz');
+    allmafia.push('Klutz');
+    break;
+  case 30:
+    console.log('Librarian');
+    roleset.push('Librarian');
+    allmafia.push('Librarian');
+    break;
+  case 31:
+    console.log('Linchipin');
+    roleset.push('Linchpin');
+    allmafia.push('Linchpin');
+    break;
+  case 32:
+    console.log('Lurker');
+    roleset.push('Lurker');
+    allmafia.push('Lurker');
+    break;
+  case 33:
+    console.log('Mafia');
+    roleset.push('Mafia');
+    allmafia.push('Mafia');
+    break;
+  case 34:
+    console.log('Magician');
+    roleset.push('Magician');
+    allmafia.push('Magician');
+    break;
+  case 35:
+    console.log('Mailman');
+    roleset.push('Mailman');
+    allmafia.push('Mailman');
+    break;
+  case 36:
+    console.log('Mesmer');
+    roleset.push('Mesmer');
+    allmafia.push('Mesmer');
+    break;
+  case 37:
+    console.log('Moderator');
+    roleset.push('Moderator');
+    allmafia.push('Moderator');
+    break;
+  case 38:
+    console.log('Mole');
+    roleset.push('Mole');
+    allmafia.push('Mole');
+    break;
+  case 39:
+    console.log('Ninja');
+    roleset.push('Ninja');
+    allmafia.push('Ninja');
+    break;
+  case 40:
+    console.log('Painter');
+    roleset.push('Painter');
+    allmafia.push('Painter');
+    break;
+  case 41:
+    console.log('Paparazzo');
+    roleset.push('Paparazzo');
+    allmafia.push('Paparazzo');
+    break;
+  case 42:
+    console.log('Poacher');
+    roleset.push('Poacher');
+    allmafia.push('Poacher');
+    break;
+  case 43:
+    console.log('Quack');
+    roleset.push('Quack');
+    allmafia.push('Quack');
+    break;
+  case 44:
+    console.log('Radio Operator');
+    roleset.push('Radio Operator');
+    allmafia.push('Radio Operator');
+    break;
+  case 45:
+    console.log('Saboteur');
+    roleset.push('Saboteur');
+    allmafia.push('Saboteur');
+    break;
+  case 46:
+    console.log('Scout');
+    roleset.push('Scout');
+    allmafia.push('Scout');
+    break;
+  case 47:
+    console.log('Spy');
+    roleset.push('Spy');
+    allmafia.push('Spy');
+    break;
+  case 48:
+    console.log('Strongman');
+    roleset.push('Strongman');
+    allmafia.push('Strongman');
+    break;
+  case 49:
+    console.log('Succubus');
+    roleset.push('Succubus');
+    allmafia.push('Succubus');
+    break;
+  case 50:
+    console.log('Sweeper');
+    roleset.push('Sweeper');
+    allmafia.push('Sweeper');
+    break;
+  case 51:
+    console.log('Tagger');
+    roleset.push('Tagger');
+    allmafia.push('Tagger');
+    break;
+  case 52:
+    console.log('Tailor');
+    roleset.push('Tailor');
+    allmafia.push('Tailor');
+    break;
+  case 53:
+    console.log('Trancer');
+    roleset.push('Trancer');
+    allmafia.push('Trancer');
+    break;
+  case 54:
+    console.log('Understudy');
+    roleset.push('Understudy');
+    allmafia.push('Understudy');
+    break;
+  case 55:
+    console.log('Yakuza');
+    roleset.push('Yakuza');
+    allmafia.push('Yakuza');
+    break;
+  case 56:
+    console.log('Clown');
+    roleset.push('Clown');
+    allmafia.push('Clown');
+    break;
+  case 57:
+    console.log('Butler');
+    roleset.push('Butler');
+    allmafia.push('Butler');
+    break;
+  case 58:
+    console.log('Deathcaller');
+    roleset.push('Deathcaller');
+    allmafia.push('Deathcaller');
+    break;
+  case 59:
+    console.log('Kingmaker');
+    roleset.push('Kingmaker');
+    allmafia.push('Kingmaker');
+    break;
+
+}
+i3++
+};
+
+
+
+let i4 = 0;
+while (i4 < nonmafcount) {
+value = Math.floor(Math.random() * 11) + 1;
+switch(value) {
+  case 1:
+    console.log('Assassin');
+    roleset.push('Assassin');
+    allmafia.push('Assassin');
+    break;
+  case 2:
+    console.log('Associate');
+    roleset.push('Associate');
+    allmafia.push('Associate');
+    break;
+  case 3:
+    console.log('Consigliere');
+    roleset.push('Consigliere');
+    allmafia.push('Consigliere');
+    break;
+  case 4:
+    console.log('Dark Templar');
+    roleset.push('Dark Templar');
+    allmafia.push('Dark Templar');
+    break;
+  case 5:
+    console.log('Detonator');
+    roleset.push('Detonator');
+    allmafia.push('Detonator');
+    break;
+  case 6:
+    console.log('Mad Bomber');
+    roleset.push('Mad Bomber');
+    allmafia.push('Mad Bomber');
+    break;
+  case 7:
+    console.log('Marksman');
+    roleset.push('Marksman');
+    allmafia.push('Marksman');
+    break;
+  case 8:
+    console.log('Pyromaniac');
+    roleset.push('Pyromaniac');
+    allmafia.push('Pyromaniac');
+    break;
+  case 9:
+    console.log('Thief');
+    roleset.push('Theif');
+    allmafia.push('Theif');
+    break;
+  case 10:
+    console.log('Wanderer');
+    roleset.push('Wanderer');
+    allmafia.push('Wanderer');
+    break;
+  case 11:
+    console.log('Wannabe');
+    roleset.push('Wannabe');
+    allmafia.push('Wannabe');
+    break;
+}
+i4++
+};
+
+
+let i5 = 0;
+while (i5 < thirdcount) {
+value = Math.floor(Math.random() * 18) + 1; //excluding Fool, Selfish Fool and Jester
+
+switch(value) {
+  case 1:
+    console.log('Amnesiac'); roleset.push('Amnesiac');
+    allthirdparty.push('Amnesiac');
+    break;
+  case 2:
+    console.log('Bounty Hunter'); roleset.push('Bounty Hunter');
+    allthirdparty.push('Bounty Hunter');
+    break;
+  case 3:
+    console.log('Cult'); roleset.push('Cult');
+    allthirdparty.push('Cult');
+    break;
+  case 4:
+    console.log('Executioner'); roleset.push('Executioner');
+    allthirdparty.push('Executioner');
+    break;
+  case 5:
+    console.log('Greedy Executioner'); roleset.push('Greedy Executioner');
+    allthirdparty.push('Greedy Executioner');
+    break;
+  case 6:
+    console.log('Killer');
+    roleset.push('Killer');
+    allthirdparty.push('Killer');
+    break;
+  case 7:
+    console.log('Lover');
+    roleset.push('Lover');
+    allthirdparty.push('Lover');
+    break;
+  case 8:
+    console.log('Manipulator');
+    roleset.push('Manipulator');
+    allthirdparty.push('Manipulator');
+    break;
+  case 9:
+    console.log('Overlord');
+    roleset.push('Overlord');
+    allthirdparty.push('Overlord');
+    break;
+  case 10:
+    console.log('Pacifist');
+    roleset.push('Pacifist');
+    allthirdparty.push('Pacifist');
+    break;
+  case 11:
+    console.log('Scumbag');
+    roleset.push('Scumbag');
+    allthirdparty.push('Scumbag');
+    break;
+  case 12:
+    console.log('Siren');
+    roleset.push('Siren');
+    allthirdparty.push('Siren');
+    break;
+  case 13:
+    console.log('Survivor');
+    roleset.push('Survivor');
+    allthirdparty.push('Survivor');
+    break;
+  case 14:
+    console.log('Tax Collector');
+    roleset.push('Tax Collector');
+    allthirdparty.push('Tax Collector');
+    break;
+  case 15:
+    console.log('Thorne');
+    roleset.push('Thorne');
+    allthirdparty.push('Thorne');
+    break;
+  case 16:
+    console.log('Traitor');
+    roleset.push('Traitor');
+    allthirdparty.push('Traitor');
+    break;
+  case 17:
+    console.log('Zombie');
+    roleset.push('Zombie');
+    allthirdparty.push('Zombie');
+    break;
+  case 18:
+    console.log('Shaman');
+    roleset.push('Shaman');
+    allthirdparty.push('Shaman');
+    break;
+}
+i5++
+};
+
+roleset.sort();
+
+
+
+
+
+
+
+
+for (let value of roleset) {
+
+switch(value) {
+  case 'Agent':
+    code.push('322a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Agoraphobe':
+    code.push('1567786474a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Alcoholic':
+    code.push('1599661616a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Amnesiac':
+    code.push('1624413356a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Anarchist':
+    code.push('1602978335a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Armorer':
+    code.push('1a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Arms Dealer':
+    code.push('19a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Assassin':
+    code.push('68a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Associate':
+    code.push('1596416878a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Auditor':
+    code.push('91a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Bishop':
+    code.push('321a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Blade Master':
+    code.push('8a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Bodyguard':
+    code.push('9a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Bomb':
+    code.push('4a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Bounty Hunter':
+    code.push('5a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Brainwasher':
+    code.push('5a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Bulletproof':
+    code.push('1541122637a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Busboy':
+    code.push('1540004252a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Butler':
+    code.push('1643595684a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Candle':
+    code.push('27a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Cat':
+    code.push('1609987970a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Clown':
+    code.push('1554252534a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Con Man':
+    code.push('60a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Confused Cop':
+    code.push('6a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Consigliere':
+    code.push('61a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Contingency Planner':
+    code.push('1547802152a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Cop':
+    code.push('7a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Coroner':
+    code.push('1550785710a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Corruptor':
+    code.push('1567787886a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Counterfeiter':
+    code.push('1623799794a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Crier':
+    code.push('51a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Crook':
+    code.push('5639273a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Cult':
+    code.push('93a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Dark Templar':
+    code.push('1616290531a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Deathcaller':
+    code.push('1643942425a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Defector':
+    code.push('1644117932a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Defense Attorney':
+    code.push('1609649171a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Delinquent':
+    code.push('1596417104a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Detective':
+    code.push('11a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Detonator':
+    code.push('1539825403a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Diva':
+    code.push('59a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Doctor':
+    code.push('12a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Dog':
+    code.push('22a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Don':
+    code.push('1599674667a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Drunk':
+    code.push('14a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Electrician':
+    code.push('1597889202a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Emcee':
+    code.push('1583467528a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Executioner':
+    code.push('100a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Extrovert':
+    code.push('1625356264a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Fixer':
+    code.push('73a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Fortune Teller':
+    code.push('15a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Framer':
+    code.push('64a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Freezer':
+    code.push('80a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Fruit Vendor':
+    code.push('324a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Godfather':
+    code.push('65a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Goof':
+    code.push('1565222419a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Governor':
+    code.push('17a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Grandma':
+    code.push('18a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Grandpa':
+    code.push('66a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Graverobber':
+    code.push('1559319559a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Greedy Executioner':
+    code.push('96a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Guardian':
+    code.push('1559001189a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Handyman':
+    code.push('1558467454a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hangman':
+    code.push('1540783473a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Headhunter':
+    code.push('1610841973a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hitman':
+    code.push('1538276587a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hooker':
+    code.push('69a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hunter':
+    code.push('20a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hustler':
+    code.push('1575667373a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Hypnotist':
+    code.push('21a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Idol Hunter':
+    code.push('1609825209a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Impostor':
+    code.push('1596337363a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Informant':
+    code.push('1588457214a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Insane Cop':
+    code.push('23a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Interceptor':
+    code.push('71a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Jack':
+    code.push('1577500425a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Jailer':
+    code.push('24a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Janitor':
+    code.push('72a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Jaywalker':
+    code.push('1598154575a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Jekyll':
+    code.push('83a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Killer':
+    code.push('98a' + indexOfAll(roleset, value).length);
+    break;
+  case 'King':
+    code.push('26a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Kingmaker':
+    code.push('1643419817a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Kingpin':
+    code.push('1611986711a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Klutz':
+    code.push('1565223000a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Lamb':
+    code.push('1539915457a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Lazy Tracker':
+    code.push('1603688758a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Librarian':
+    code.push('1553337595a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Linchpin':
+    code.push('1623980546a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Lookout':
+    code.push('1541790284a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Loser':
+    code.push('1599572963a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Lover':
+    code.push('99a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Luckyguard':
+    code.push('3a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Lurker':
+    code.push('74a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mad Bomber':
+    code.push('1557626901a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mafia':
+    code.push('75a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Magician':
+    code.push('70a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mailman':
+    code.push('1556837816a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Manipulator':
+    code.push('1547078335a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Marksman':
+    code.push('86a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mason':
+    code.push('29a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Medic':
+    code.push('31a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Medium':
+    code.push('1610228810a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Merlin':
+    code.push('1600386374a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mesmer':
+    code.push('76a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Moderator':
+    code.push('1623812683a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Mole':
+    code.push('1581354568a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Naive Cop':
+    code.push('33a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Nervous Sleeper':
+    code.push('1572568017a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Ninja':
+    code.push('77a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Nurse':
+    code.push('35a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Oracle':
+    code.push('36a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Overlord':
+    code.push('92a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Pacifist':
+    code.push('101a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Painter':
+    code.push('78a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Paparazzo':
+    code.push('79a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Paranoiac':
+    code.push('1552856661a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Paranoid Cop':
+    code.push('37a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Parity Cop':
+    code.push('38a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Party Host':
+    code.push('1573101280a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Patroller':
+    code.push('39a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Phantom':
+    code.push('16a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Photographer':
+    code.push('1580766301a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Poacher':
+    code.push('1596416287a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Pollster':
+    code.push('1576088848a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Polygraph':
+    code.push('1565630670a' + indexOfAll(roleset, value).length);
+    break;
+  case 'President':
+    code.push('40a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Profiler':
+    code.push('1610848791a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Prosecutor':
+    code.push('1609898885a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Psychiatrist':
+    code.push('44a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Pyromaniac':
+    code.push('1573568724a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Quack':
+    code.push('62a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Radio Operator':
+    code.push('1546127461a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Regent':
+    code.push('1643511585a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Representative':
+    code.push('25a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Revenant':
+    code.push('2a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Rifleman':
+    code.push('10a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Runner':
+    code.push('1625357559a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Saboteur':
+    code.push('1553863028a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Scout':
+    code.push('84a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Scumbag':
+    code.push('103a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Secret Service':
+    code.push('1541480746a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Seer':
+    code.push('13a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Sergeant':
+    code.push('34a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Shaman':
+    code.push('107a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Sheriff':
+    code.push('43a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Shogun':
+    code.push('42a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Siren':
+    code.push('105a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Snoop':
+    code.push('1577132908a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Soloman':
+    code.push('47a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Speaker':
+    code.push('1580879842a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Spy':
+    code.push('323a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Strongman':
+    code.push('1558930946a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Succubus':
+    code.push('67a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Surveyor':
+    code.push('1558240320a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Survivor':
+    code.push('1580690992a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Suspect Governor':
+    code.push('1597815390a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Suspect Mind':
+    code.push('1540344996a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Sweeper':
+    code.push('1541806737a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tactician':
+    code.push('1644316289a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tagger':
+    code.push('87a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tailor':
+    code.push('1595571568a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tapioca':
+    code.push('50a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tax Collector':
+    code.push('201a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Templar':
+    code.push('1573416236a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Theif':
+    code.push('1556390101a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Thorne':
+    code.push('1596390851a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tourist':
+    code.push('1596418665a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Tracker':
+    code.push('52a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Traitor':
+    code.push('106a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Trancer':
+    code.push('89a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Trapper':
+    code.push('53a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Understudy':
+    code.push('1587533794a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Vanilla Cop':
+    code.push('1565316812a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Vash':
+    code.push('200a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Veteran':
+    code.push('55a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Vigilante':
+    code.push('56a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Virgin':
+    code.push('58a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Wanderer':
+    code.push('1624739756a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Wannabe':
+    code.push('1580928590a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Weaver':
+    code.push('1568391955a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Wiretapper':
+    code.push('1553924852a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Yakuza':
+    code.push('90a' + indexOfAll(roleset, value).length);
+    break;
+  case 'Zombie':
+    code.push('1558372324a' + indexOfAll(roleset, value).length);
+    break;
+}
+};
+
+
+
+code = code.filter(function (x, i, self) {
+  return self.indexOf(x) === i;
+});
+
+code = code.join('b')
+
+let mafiatext = document.getElementById('copyTarget');
+mafiatext.value = code;
+
+
+let towntable = document.getElementById('towntable');
+let thirdpartytable = document.getElementById('thirdpartytable');
+let mafiatable = document.getElementById('mafiatable');
+
+
+
+alltown.sort();
+
+alltown = alltown.join('</td></tr><tr><td>');
+
+allthirdparty.sort();
+allthirdparty = allthirdparty.join('</td></tr><tr><td>');
+
+allmafia.sort();
+allmafia = allmafia.join('</td></tr><tr><td>');
+
+roletable.innerHTML = '<div class="flex" margin-right: auto;"><div><table border="1" class="table" bgcolor="#207199"><tbody><tr><td>' + alltown + '</td></tr></tbody></table></div><div><table border="1" class="table" bgcolor="#412099"><tbody><tr><td>' + allthirdparty + '</td></tr></tbody></table></div><div><table border="1" class="table" bgcolor="#9f1f25"><tbody><tr><td>' + allmafia + '</td></tr></tbody></table></div></div>';
+}
+
+
+ function copyToClipboard() {
+       let copyTarget = document.getElementById("copyTarget");
+
+       copyTarget.select();
+
+        document.execCommand("Copy");
+        let copybuttonvalue = document.getElementById("copybutton");
+        copybuttonvalue.value = 'copied';
+        }
+
+</script>
+
+
+</body>
+</html>
